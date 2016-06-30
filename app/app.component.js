@@ -37,6 +37,9 @@ System.register(['angular2/core', "rxjs/Rx", 'angular2/common', 'rxjs/add/observ
                         .debounceTime(400)
                         .map(function (str) { return str.replace(' ', '-'); })
                         .subscribe(function (x) { return console.log(x); });
+                    this.testObservables();
+                }
+                AppComponent.prototype.testObservables = function () {
                     // var observable = Observable.fromArray([1, 2, 3]);
                     var startDates = [];
                     var startDate = new Date(); // Assuming today for simplicity
@@ -51,7 +54,7 @@ System.register(['angular2/core', "rxjs/Rx", 'angular2/common', 'rxjs/add/observ
                         return [1, 2, 3];
                     })
                         .subscribe(function (x) { return console.log(x); });
-                }
+                };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',

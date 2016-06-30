@@ -27,6 +27,10 @@ export class AppComponent {
             .map(str => (<string>str).replace(' ', '-'))
             .subscribe(x => console.log(x));
 
+        this.testObservables();
+    }
+
+    testObservables() : any {
         // var observable = Observable.fromArray([1, 2, 3]);
         var startDates = [];
         var startDate = new Date(); // Assuming today for simplicity
@@ -42,6 +46,7 @@ export class AppComponent {
         }
 
         Observable
+        // .of(startDates)
             .fromArray(startDates)
             .map(date => {
                 console.log("Getting deals for date " + date);
