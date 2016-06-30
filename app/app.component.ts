@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 import {Observable} from "rxjs/Rx";
 import {ControlGroup, FormBuilder} from 'angular2/common';
-import 'rxjs/add/observable/fromArray'; // This one was missing from the Importing Operators video and is causing the error.
+// import 'rxjs/add/observable/fromArray'; // This one was missing from the Importing Operators video and is causing the error.
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
 
