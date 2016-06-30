@@ -1,5 +1,9 @@
 import {Component} from 'angular2/core';
+import {Observable} from "rxjs/Rx";
 import {ControlGroup, FormBuilder} from 'angular2/common';
+import 'rxjs/add/observable/fromArray'; // This one was missing from the Importing Operators video and is causing the error.
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/map';
 
 @Component({
     selector: 'my-app',
@@ -19,6 +23,8 @@ export class AppComponent {
 
         var search = this.form.find('search');
         search.valueChanges
+            .debounceTime(400)
+            .map(str => (<string>str).replace(' ', '-'))
             .subscribe(x => console.log(x));
     }
 }

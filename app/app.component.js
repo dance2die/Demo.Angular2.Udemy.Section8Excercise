@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/common', 'rxjs/add/observable/fromArray', 'rxjs/add/operator/debounceTime', 'rxjs/add/operator/map'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -19,7 +19,10 @@ System.register(['angular2/core', 'angular2/common'], function(exports_1, contex
             },
             function (common_1_1) {
                 common_1 = common_1_1;
-            }],
+            },
+            function (_1) {},
+            function (_2) {},
+            function (_3) {}],
         execute: function() {
             AppComponent = (function () {
                 function AppComponent(fb) {
@@ -28,6 +31,8 @@ System.register(['angular2/core', 'angular2/common'], function(exports_1, contex
                     });
                     var search = this.form.find('search');
                     search.valueChanges
+                        .debounceTime(400)
+                        .map(function (str) { return str.replace(' ', '-'); })
                         .subscribe(function (x) { return console.log(x); });
                 }
                 AppComponent = __decorate([
