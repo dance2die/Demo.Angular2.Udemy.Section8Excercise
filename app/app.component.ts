@@ -27,7 +27,10 @@ export class AppComponent {
             .map(str => (<string>str).replace(' ', '-'))
             .subscribe(x => console.log(x));
 
-        this.testObservables();
+        // this.testObservables();
+
+        var observable = Observable.interval(1000);
+        observable.subscribe(x => console.log(x));
     }
 
     testObservables() : any {

@@ -37,7 +37,9 @@ System.register(['angular2/core', "rxjs/Rx", 'angular2/common', 'rxjs/add/observ
                         .debounceTime(400)
                         .map(function (str) { return str.replace(' ', '-'); })
                         .subscribe(function (x) { return console.log(x); });
-                    this.testObservables();
+                    // this.testObservables();
+                    var observable = Rx_1.Observable.interval(1000);
+                    observable.subscribe(function (x) { return console.log(x); });
                 }
                 AppComponent.prototype.testObservables = function () {
                     // var observable = Observable.fromArray([1, 2, 3]);
