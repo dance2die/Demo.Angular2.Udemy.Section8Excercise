@@ -30,7 +30,11 @@ export class AppComponent {
         // this.testObservables();
 
         var observable = Observable.interval(1000);
-        observable.subscribe(x => console.log(x));
+        observable
+            .map (x => {
+                console.log("calling the server to get the latest news")
+            })
+            .subscribe(news => console.log(news));
     }
 
     testObservables() : any {

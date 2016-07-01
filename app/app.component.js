@@ -39,7 +39,11 @@ System.register(['angular2/core', "rxjs/Rx", 'angular2/common', 'rxjs/add/observ
                         .subscribe(function (x) { return console.log(x); });
                     // this.testObservables();
                     var observable = Rx_1.Observable.interval(1000);
-                    observable.subscribe(function (x) { return console.log(x); });
+                    observable
+                        .map(function (x) {
+                        console.log("calling the server to get the latest news");
+                    })
+                        .subscribe(function (news) { return console.log(news); });
                 }
                 AppComponent.prototype.testObservables = function () {
                     // var observable = Observable.fromArray([1, 2, 3]);
