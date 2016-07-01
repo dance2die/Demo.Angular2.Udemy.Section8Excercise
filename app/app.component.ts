@@ -29,10 +29,30 @@ export class AppComponent {
 
         // this.testObservables();
 
+        // this.testInterval();
+
+        this.testForkJoin();
+    }
+
+    private testForkJoin() {
+        var userStream = Observable.of({
+            userId: 1, username: 'mosh'
+        }).delay(2000);
+
+        var tweetsStream = Observable.of([1,2,3]).delay(1500);
+
+        Observable
+            .forkJoin(userStream, tweetsStream)
+            .map(joined => new Object({user: joined[0], tweets: joined[1]}))
+            .subscribe(result => console.log(result));
+    }
+
+    private testInterval() {
         var observable = Observable.interval(1000);
         observable
-            .map (x => {
-                console.log("calling the server to get the latest news")
+            .flatMap(x => {
+                console.log("calling the server to get the latest news");
+                return Observable.of([1, 2, 3]);
             })
             .subscribe(news => console.log(news));
     }

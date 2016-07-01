@@ -38,13 +38,28 @@ System.register(['angular2/core', "rxjs/Rx", 'angular2/common', 'rxjs/add/observ
                         .map(function (str) { return str.replace(' ', '-'); })
                         .subscribe(function (x) { return console.log(x); });
                     // this.testObservables();
+                    // this.testInterval();
+                    this.testForkJoin();
+                }
+                AppComponent.prototype.testForkJoin = function () {
+                    var userStream = Rx_1.Observable.of({
+                        userId: 1, username: 'mosh'
+                    }).delay(2000);
+                    var tweetsStream = Rx_1.Observable.of([1, 2, 3]).delay(1500);
+                    Rx_1.Observable
+                        .forkJoin(userStream, tweetsStream)
+                        .map(function (joined) { return new Object({ user: joined[0], tweets: joined[1] }); })
+                        .subscribe(function (result) { return console.log(result); });
+                };
+                AppComponent.prototype.testInterval = function () {
                     var observable = Rx_1.Observable.interval(1000);
                     observable
-                        .map(function (x) {
+                        .flatMap(function (x) {
                         console.log("calling the server to get the latest news");
+                        return Rx_1.Observable.of([1, 2, 3]);
                     })
                         .subscribe(function (news) { return console.log(news); });
-                }
+                };
                 AppComponent.prototype.testObservables = function () {
                     // var observable = Observable.fromArray([1, 2, 3]);
                     var startDates = [];
