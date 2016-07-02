@@ -28,10 +28,18 @@ export class AppComponent {
             .subscribe(x => console.log(x));
 
         // this.testObservables();
-
         // this.testInterval();
+        // this.testForkJoin();
 
-        this.testForkJoin();
+        this.testHandlingErrors();
+    }
+
+    private testHandlingErrors() {
+        var observable = Observable.throw(new Error("Something failed."));
+        observable.subscribe(
+            x => console.log(x),
+            error => console.log(error);
+        );
     }
 
     private testForkJoin() {

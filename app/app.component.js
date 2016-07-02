@@ -39,8 +39,14 @@ System.register(['angular2/core', "rxjs/Rx", 'angular2/common', 'rxjs/add/observ
                         .subscribe(function (x) { return console.log(x); });
                     // this.testObservables();
                     // this.testInterval();
-                    this.testForkJoin();
+                    // this.testForkJoin();
+                    this.testHandlingErrors();
                 }
+                AppComponent.prototype.testHandlingErrors = function () {
+                    var observable = Rx_1.Observable.throw(new Error("Something failed."));
+                    observable.subscribe(function (x) { return console.log(x); }, function (error) { return console.log(error); });
+                    ;
+                };
                 AppComponent.prototype.testForkJoin = function () {
                     var userStream = Rx_1.Observable.of({
                         userId: 1, username: 'mosh'
