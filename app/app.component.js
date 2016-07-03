@@ -41,8 +41,19 @@ System.register(['angular2/core', "rxjs/Rx", 'angular2/common', 'rxjs/add/observ
                     // this.testInterval();
                     // this.testForkJoin();
                     // this.testHandlingErrors();
-                    this.testMultipleTries();
+                    // this.testMultipleTries();
+                    this.testCatching();
                 }
+                AppComponent.prototype.testCatching = function () {
+                    // var remoteDataStream = Observable.throw(new Error("Something failed."));
+                    var remoteDataStream = Rx_1.Observable.of([4, 5, 6]);
+                    remoteDataStream
+                        .catch(function (err) {
+                        var localDataStream = Rx_1.Observable.of([1, 2, 3]);
+                        return localDataStream;
+                    })
+                        .subscribe(function (x) { return console.log(x); });
+                };
                 AppComponent.prototype.testMultipleTries = function () {
                     var counter = 0;
                     var ajaxCall = Rx_1.Observable.of('url')
