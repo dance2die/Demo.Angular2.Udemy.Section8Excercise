@@ -42,8 +42,22 @@ System.register(['angular2/core', "rxjs/Rx", 'angular2/common', 'rxjs/add/observ
                     // this.testForkJoin();
                     // this.testHandlingErrors();
                     // this.testMultipleTries();
-                    this.testCatching();
+                    // this.testCatching();
+                    // this.testTimeout();
+                    this.testObservableNotification();
                 }
+                AppComponent.prototype.testObservableNotification = function () {
+                    var observable = Rx_1.Observable.fromArray([1, 2, 3]);
+                    observable.subscribe(function (x) { return console.log(x); }, function (error) { return console.error(error); }, function () { return console.log("Completed"); });
+                    var observable2 = Rx_1.Observable.throw(new Error("error"));
+                    observable2.subscribe(function (x) { return console.log(x); }, function (error) { return console.error(error); }, function () { return console.log("Completed"); });
+                };
+                AppComponent.prototype.testTimeout = function () {
+                    var remoteDataStream = Rx_1.Observable.of([1, 2, 3]).delay(5000);
+                    remoteDataStream
+                        .timeout(1000)
+                        .subscribe(function (x) { return console.log(x); }, function (error) { return console.error(error); });
+                };
                 AppComponent.prototype.testCatching = function () {
                     // var remoteDataStream = Observable.throw(new Error("Something failed."));
                     var remoteDataStream = Rx_1.Observable.of([4, 5, 6]);

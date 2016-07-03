@@ -32,7 +32,37 @@ export class AppComponent {
         // this.testForkJoin();
         // this.testHandlingErrors();
         // this.testMultipleTries();
-        this.testCatching();
+        // this.testCatching();
+        // this.testTimeout();
+        this.testObservableNotification();
+
+
+    }
+
+    private testObservableNotification() {
+        var observable = Observable.fromArray([1,2,3]);
+        observable.subscribe(
+            x => console.log(x),
+            error => console.error(error),
+            () => console.log("Completed")
+        );
+
+        var observable2 = Observable.throw(new Error("error"));
+        observable2.subscribe(
+            x => console.log(x),
+            error => console.error(error),
+            () => console.log("Completed")
+        );
+    }
+
+    private testTimeout() {
+        var remoteDataStream = Observable.of([1,2,3]).delay(5000);
+        remoteDataStream
+            .timeout(1000)
+            .subscribe(
+                x => console.log(x),
+                error => console.error(error)
+            );
     }
 
     private testCatching() {
