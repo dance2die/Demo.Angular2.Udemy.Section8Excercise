@@ -30,15 +30,34 @@ export class AppComponent {
         // this.testObservables();
         // this.testInterval();
         // this.testForkJoin();
+        // this.testHandlingErrors();
+        this.testMultipleTries();
+    }
 
-        this.testHandlingErrors();
+    private testMultipleTries() {
+        var counter = 0;
+
+        var ajaxCall = Observable.of('url')
+            .flatMap(() => {
+                if (++counter < 2) {
+                    return Observable.throw(new Error("Request failed"));
+                }
+                return Observable.of([1,2,3]);
+            });
+
+        ajaxCall
+            .retry(3)
+            .subscribe(
+                x => console.log(x),
+                error => console.error(error)
+            );
     }
 
     private testHandlingErrors() {
         var observable = Observable.throw(new Error("Something failed."));
         observable.subscribe(
             x => console.log(x),
-            error => console.log(error);
+            error => console.log(error)
         );
     }
 

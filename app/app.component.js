@@ -40,12 +40,25 @@ System.register(['angular2/core', "rxjs/Rx", 'angular2/common', 'rxjs/add/observ
                     // this.testObservables();
                     // this.testInterval();
                     // this.testForkJoin();
-                    this.testHandlingErrors();
+                    // this.testHandlingErrors();
+                    this.testMultipleTries();
                 }
+                AppComponent.prototype.testMultipleTries = function () {
+                    var counter = 0;
+                    var ajaxCall = Rx_1.Observable.of('url')
+                        .flatMap(function () {
+                        if (++counter < 2) {
+                            return Rx_1.Observable.throw(new Error("Request failed"));
+                        }
+                        return Rx_1.Observable.of([1, 2, 3]);
+                    });
+                    ajaxCall
+                        .retry(3)
+                        .subscribe(function (x) { return console.log(x); }, function (error) { return console.error(error); });
+                };
                 AppComponent.prototype.testHandlingErrors = function () {
                     var observable = Rx_1.Observable.throw(new Error("Something failed."));
                     observable.subscribe(function (x) { return console.log(x); }, function (error) { return console.log(error); });
-                    ;
                 };
                 AppComponent.prototype.testForkJoin = function () {
                     var userStream = Rx_1.Observable.of({
